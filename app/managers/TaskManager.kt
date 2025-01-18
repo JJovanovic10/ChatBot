@@ -19,10 +19,12 @@ class TaskManager {
 
     fun toggleTaskStatus(id: Int){
         val task = tasks.find {it.id == id}
-        if (task != null){
-            task.isCompleted = !task.isCompleted
-            task.updatedAt = LocalDateTime.now().toString()
-        }
+        task?.toggleStatus()
+    }
+
+    fun updateTask(id: Int, title: String, description: String){
+        val updatedTask = tasks.find {it.id == id}
+        updatedTask?.updateTask(title, description)
     }
 
     fun listTask(): List<Task>{

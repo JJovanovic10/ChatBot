@@ -3,12 +3,17 @@ package Kotlin03_ChatBot.app.models
 import java.time.LocalDateTime
 
 class Note (
-    val id: Int = Note.generateId(),
     var title: String,
     var content: String,
     val createdAt: String = LocalDateTime.now().toString(),
     var updatedAt: String = createdAt
 ){
+
+    val id: Int
+
+    init{
+        id = generateId()
+    }
 
     fun updateNoteContent(content: String){
         this.content = content

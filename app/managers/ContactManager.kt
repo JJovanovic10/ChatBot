@@ -11,6 +11,10 @@ class ContactManager {
         contacts.add(newContact)
     }
 
+    fun updateContactNumber(id: Int, phoneNumber: String){
+        val newContact = contacts.find {it.id == id}
+        newContact?.updateNumber(phoneNumber)
+    }
     fun deleteContact(id: Int){
         contacts.removeIf {it.id == id}
     }
@@ -18,4 +22,5 @@ class ContactManager {
     fun listContacts(): List<Contact>{
         return contacts
     }
+
 }

@@ -20,9 +20,9 @@ class Task(
         return isCompleted
     }
 
-    fun updateTask(newTitle: String, newDescription: String){
-        this.title = newTitle
-        this.description = newDescription
+    fun updateTask(title: String, description: String){
+        this.title = title
+        this.description = description
         this.updatedAt = LocalDateTime.now().toString()
     }
 
