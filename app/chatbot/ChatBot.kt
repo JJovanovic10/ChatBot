@@ -39,8 +39,26 @@ class ChatBot(
                 }
             }
             "delete task" -> {
-
+                try{
+                    println("Enter id of task u want to delete: ")
+                    val id = readln().toInt()
+                    taskManager.deleteTask(id)
+                    println("Task deleted successfully")
+                } catch (e: Exception){
+                    println("Can't delete task")
+                }
             }
+            "list tasks" -> {
+                try{
+                    taskManager.listTask().forEach { task ->
+                        println("ID: ${task.id}, Title: ${task.title}, Description: ${task.description}")
+                    }
+                } catch (e: Exception){
+                    println("Can't list tasks")
+                }
+            }
+
+
 
         }
 
