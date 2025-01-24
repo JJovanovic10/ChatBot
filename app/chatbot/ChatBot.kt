@@ -50,7 +50,7 @@ class ChatBot(
                             taskManager.deleteTask(id)
                             println("Task deleted successfully")
                         } catch (e: Exception){
-                            println("Can't delete task")
+                            println("Can't delete this task")
                         }
                     }
                     "list tasks" -> {
@@ -67,7 +67,7 @@ class ChatBot(
             }
             "contacts" -> {
                 println("Choose option: add contact, update contact, delete contact, list contacts")
-                val inputStr = readLine()!!.toString()
+                val inputStr = readln().toString()
                 when(inputStr){
                     "add contact" -> {
                         try{
@@ -99,7 +99,7 @@ class ChatBot(
                             contactManager.deleteContact(id)
                             println("Contact deleted successfully")
                         } catch (e: Exception){
-                            println("Can't delete contact")
+                            println("Can't delete this contact")
                         }
                     }
                     "list contacts" -> {
@@ -115,12 +115,55 @@ class ChatBot(
                 }
             }
             "notes" -> {
-                // ...
-                // ...
+                println("Choose option: add note, update note, delete note, list notes")
+                val inputStr = readln().toString()
+                when(inputStr){
+                    "add note" -> {
+                        try {
+                            println("Add title and content")
+                            val title = readln().toString()
+                            val content = readln().toString()
+                            noteManager.addNote(title, content)
+                            println("Note added successfully")
+                        } catch (e: Exception){
+                            println("Can't add new note")
+                        }
+                    }
+                    "update note" -> {
+                        try {
+                            println("Choose id of note u want to update")
+                            val id = readln().toInt()
+                            println("Add new note content")
+                            val content = readln().toString()
+                            noteManager.updateNote(id, content)
+                            println("Note updated successfully")
+                        } catch (e: Exception){
+                            println("Can't add new note")
+                        }
+                    }
+                    "delete note" -> {
+                        try{
+                            println("Enter id of note u want to delete")
+                            val id = readln().toInt()
+                            noteManager.deleteNote(id)
+                            println("Note deleted successfully")
+                        } catch (e: Exception){
+                            println("Can't delete this note")
+                        }
+                    }
+                    "list notes" -> {
+                        try{
+                            noteManager.listNotes().forEach { note ->
+                                println("ID: ${note.id}, Title: ${note.title}, Content: ${note.content}")
+                            }
+                        } catch (e: Exception){
+                            println("Can't list notes")
+                        }
+                    }
+                }
             }
             else -> println("Invalid input")
         }
-
 
     }
 
