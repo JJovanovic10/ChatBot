@@ -17,40 +17,28 @@ class ChatBot(
         when(input){
             "tasks" -> {
                 println("Choose option: add task, update task, delete task, list tasks")
-                val inputStr = readLine()!!.toString()
+                val inputStr = readln()
                 when(inputStr){
                     "add task" -> {
-                        try {
-                            println("Enter a new title and description")
-                            val newTitle = readLine()!!.toString()
-                            val newDescription = readLine()!!.toString()
-                            taskManager.addTask(newTitle, newDescription)
-                            println("Task added successfully")
-                        } catch (e: Exception){
-                            println("Can't add new task")
+                        safeInput("Enter a new title and decsription"){ userInput ->
+                            val (title, description) = input.split(" ")
+                            taskManager.addTask(title, description)
                         }
+
+
                     }
                     "update task" -> {
-                        try{
-                            println("Enter id of task u want to update: ")
-                            val id = readln().toInt()
-                            println("Enter a new title and description: ")
-                            val newTitle = readLine()!!.toString()
-                            val newDescription = readLine()!!.toString()
-                            taskManager.updateTask(id, newTitle, newDescription)
-                            println("Task updated successfully")
-                        } catch (e: Exception){
-                            println("Can't update task")
+                        println("Enter id of tas u want to update")
+                        val id = readln().toInt()
+                        safeInput("Enter a new title and description: ") {userInput ->
+                            val(title, description) = input.split(" ")
+                            taskManager.updateTask(id, title, description)
                         }
                     }
                     "delete task" -> {
-                        try{
-                            println("Enter id of task u want to delete: ")
+                        safeInput("Enter id of task u want to delete:"){userInput ->
                             val id = readln().toInt()
                             taskManager.deleteTask(id)
-                            println("Task deleted successfully")
-                        } catch (e: Exception){
-                            println("Can't delete this task")
                         }
                     }
                     "list tasks" -> {
@@ -67,39 +55,26 @@ class ChatBot(
             }
             "contacts" -> {
                 println("Choose option: add contact, update contact, delete contact, list contacts")
-                val inputStr = readln().toString()
+                val inputStr = readln()
                 when(inputStr){
                     "add contact" -> {
-                        try{
-                            println("Enter name and phone number of new contact")
-                            val name = readLine()!!.toString()
-                            val phoneNumber = readLine()!!.toString()
+                        safeInput("Enter name and phone number of new contact: "){userInput ->
+                            val (name, phoneNumber) = input.split(" ")
                             contactManager.addContact(name, phoneNumber)
-                            println("Contact added successfully")
-                        } catch (e: Exception){
-                            println("Can't add new contact")
                         }
                     }
                     "update contact" -> {
-                        try{
-                            println("Enter id of contact u want to update")
-                            val id = readln().toInt()
-                            println("Enter new phone number")
-                            val newNumber = readln().toString()
-                            contactManager.updateContactNumber(id, newNumber)
-                            println("Contact updated successfully")
-                        } catch (e: Exception){
-                            println("Can't update contact")
+                        println("Enter id of contact u want to update")
+                        val id = readln().toInt()
+                        safeInput("Enter new phone number") {userInput ->
+                            val phoneNumber = readln()
+                            contactManager.updateContactNumber(id, phoneNumber)
                         }
                     }
                     "delete contact" -> {
-                        try{
-                            println("Enter id of contact u want to delete")
+                        safeInput("Enter id of contact u want to delete") {userInput ->
                             val id = readln().toInt()
                             contactManager.deleteContact(id)
-                            println("Contact deleted successfully")
-                        } catch (e: Exception){
-                            println("Can't delete this contact")
                         }
                     }
                     "list contacts" -> {
@@ -116,39 +91,26 @@ class ChatBot(
             }
             "notes" -> {
                 println("Choose option: add note, update note, delete note, list notes")
-                val inputStr = readln().toString()
+                val inputStr = readln()
                 when(inputStr){
                     "add note" -> {
-                        try {
-                            println("Add title and content")
-                            val title = readln().toString()
-                            val content = readln().toString()
+                        safeInput("Add title and content of new note"){userInput ->
+                            val (title, content) = input.split(" ")
                             noteManager.addNote(title, content)
-                            println("Note added successfully")
-                        } catch (e: Exception){
-                            println("Can't add new note")
                         }
                     }
                     "update note" -> {
-                        try {
-                            println("Choose id of note u want to update")
-                            val id = readln().toInt()
-                            println("Add new note content")
-                            val content = readln().toString()
+                        println("Choose id of note u want to update: ")
+                        val id = readln().toInt()
+                        safeInput("Enter new note content"){userInput ->
+                            val content = readln()
                             noteManager.updateNote(id, content)
-                            println("Note updated successfully")
-                        } catch (e: Exception){
-                            println("Can't add new note")
                         }
                     }
                     "delete note" -> {
-                        try{
-                            println("Enter id of note u want to delete")
+                        safeInput("Enter id of note u want to delete: "){userInput ->
                             val id = readln().toInt()
                             noteManager.deleteNote(id)
-                            println("Note deleted successfully")
-                        } catch (e: Exception){
-                            println("Can't delete this note")
                         }
                     }
                     "list notes" -> {
@@ -167,6 +129,14 @@ class ChatBot(
 
     }
 
-
+    fun safeInput(prompt: String, action: (String) -> Unit){
+        try{
+            println(prompt)
+            val input = readln()
+            action(input)
+        } catch (e: Exception){
+            println("Error: ${e.message}")
+        }
+    }
 
 }
