@@ -13,7 +13,6 @@ class ChatBot(
 
     fun respondToUser(input: String){
 
-        println("Choose what you want to manipulate: tasks, contacts, notes")
         when(input){
             "tasks" -> {
                 println("Choose option: add task, update task, delete task, list tasks")
