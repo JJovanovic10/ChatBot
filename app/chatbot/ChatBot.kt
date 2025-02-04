@@ -20,7 +20,7 @@ class ChatBot(
                 when(inputStr){
                     "add task" -> {
                         safeInput("Enter a new title and decsription"){ userInput ->
-                            val (title, description) = input.split(" ")
+                            val (title, description) = userInput.split(" ")
                             taskManager.addTask(title, description)
                         }
 
@@ -58,7 +58,7 @@ class ChatBot(
                 when(inputStr){
                     "add contact" -> {
                         safeInput("Enter name and phone number of new contact: "){userInput ->
-                            val (name, phoneNumber) = input.split(" ")
+                            val (name, phoneNumber) = userInput.split(" ")
                             contactManager.addContact(name, phoneNumber)
                         }
                     }
@@ -94,7 +94,7 @@ class ChatBot(
                 when(inputStr){
                     "add note" -> {
                         safeInput("Add title and content of new note"){userInput ->
-                            val (title, content) = input.split(" ")
+                            val (title, content) = userInput.split(" ")
                             noteManager.addNote(title, content)
                         }
                     }
