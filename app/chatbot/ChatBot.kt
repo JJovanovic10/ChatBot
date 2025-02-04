@@ -65,10 +65,13 @@ class ChatBot(
                     "update contact" -> {
                         println("Enter id of contact u want to update")
                         val id = readln().toInt()
-                        safeInput("Enter new phone number") {userInput ->
-                            val phoneNumber = readln()
-                            contactManager.updateContactNumber(id, phoneNumber)
-                        }
+//                        safeInput("Enter new phone number") {userInput ->
+//                            val phoneNumber = readln()
+//                            contactManager.updateContactNumber(id, phoneNumber)
+//                        }
+                        println("Enter new phone number")
+                        val phoneNumber = readln()
+                        contactManager.updateContactNumber(id, phoneNumber)
                     }
                     "delete contact" -> {
                         safeInput("Enter id of contact u want to delete") {userInput ->
